@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">AndroidProject</string>
+    <string name="createAdBtn">Add an ad</string>
+    <string name="randomAdBtn">Pick a random ad</string>
+    <string name="adsListBtn">View all ads</string>
+    <string name="searchBtn">Search an ad</string>
 </resources>
