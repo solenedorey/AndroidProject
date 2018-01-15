@@ -7,4 +7,11 @@
     <string name="add_title_label">Title :</string>
     <string name="add_price_label">Price :</string>
     <string name="add_description_label">Description :</string>
+    <string name="add_email_label">Email :</string>
+    <string name="add_pseudo_label">Pseudo :</string>
+    <string name="add_phone_label">Phone number :</string>
+    <string name="add_city_label">City :</string>
+    <string name="add_postcode_label">Postcode :</string>
+    <string name="add_title">Add an ad</string>
+    <string name="add_submit_button">Add !</string>
 </resources>
