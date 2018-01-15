@@ -4,4 +4,7 @@
     <string name="randomAdBtn">Pick a random ad</string>
     <string name="adsListBtn">View all ads</string>
     <string name="searchBtn">Search an ad</string>
+    <string name="add_title_label">Title :</string>
+    <string name="add_price_label">Price :</string>
+    <string name="add_description_label">Description :</string>
 </resources>
