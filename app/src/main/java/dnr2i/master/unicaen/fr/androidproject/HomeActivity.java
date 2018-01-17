@@ -29,7 +29,7 @@ public class HomeActivity extends Activity {
     }
 
     public void random(View view) {
-        Intent intent = new Intent(this, AddActivity.class);
+        Intent intent = new Intent(this, ViewActivity.class);
         startActivity(intent);
     }
 }
