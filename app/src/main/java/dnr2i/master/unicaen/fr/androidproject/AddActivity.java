@@ -30,30 +30,18 @@ public class AddActivity extends Activity {
 
     public void submit(View view) {
         String title = ((EditText) findViewById(R.id.addTtitleField)).getText().toString();
-
         double price;
         try {
             price = Double.parseDouble(((EditText) findViewById(R.id.addPriceField)).getText().toString());
         } catch (NumberFormatException e) {
             price = -1;
         }
-
         String description = ((EditText) findViewById(R.id.addDescriptionField)).getText().toString();
         String email = ((EditText) findViewById(R.id.addEmailField)).getText().toString();
         String pseudo = ((EditText) findViewById(R.id.addPseudoField)).getText().toString();
         String phone = ((EditText) findViewById(R.id.addPhoneField)).getText().toString();
         String city = ((EditText) findViewById(R.id.addCityField)).getText().toString();
-
         String postcode = ((EditText) findViewById(R.id.addPostcodeField)).getText().toString();
-
-        System.out.println(title);
-        System.out.println(price);
-        System.out.println(description);
-        System.out.println(email);
-        System.out.println(pseudo);
-        System.out.println(phone);
-        System.out.println(city);
-        System.out.println(postcode);
 
         final Ad ad = new Ad(null, title, description, price, pseudo, email, phone, city, postcode, new Date().getTime());
 
@@ -65,20 +53,8 @@ public class AddActivity extends Activity {
                     @Override
                     public void onResponse(Object response) {
                         try {
-                            JSONObject json = new JSONObject(response.toString());
-                            JSONObject data = (JSONObject) json.get("response");
-                            Ad ad = new Ad(
-                                    data.get("id").toString(),
-                                    data.get("titre").toString(),
-                                    data.get("description").toString(),
-                                    Double.parseDouble(data.get("prix").toString()),
-                                    data.get("pseudo").toString(),
-                                    data.get("emailContact").toString(),
-                                    data.get("telContact").toString(),
-                                    data.get("ville").toString(),
-                                    data.get("cp").toString(),
-                                    Long.parseLong(data.get("date").toString())
-                            );
+                            JSONObject jsonObject = (JSONObject) new JSONObject(response.toString()).get("response");
+                            Ad ad = new Ad(jsonObject);
                             Intent intent = new Intent(AddActivity.this, ViewActivity.class);
                             intent.putExtra("ad", ad);
                             startActivity(intent);
