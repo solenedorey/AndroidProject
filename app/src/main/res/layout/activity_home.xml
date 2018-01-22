@@ -46,6 +46,7 @@
             android:layout_marginBottom="20dp"
             android:background="?android:attr/textColorHint"
             android:elevation="0dp"
+            android:onClick="listAds"
             android:padding="10dp"
             android:text="@string/home_ads_list_btn" />
 

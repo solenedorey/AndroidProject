@@ -32,4 +32,9 @@ public class HomeActivity extends Activity {
         Intent intent = new Intent(this, ViewActivity.class);
         startActivity(intent);
     }
+
+    public void listAds(View view) {
+        Intent intent = new Intent(this, ListActivity.class);
+        startActivity(intent);
+    }
 }
