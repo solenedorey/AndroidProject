@@ -14,4 +14,5 @@
     <string name="add_postcode_label">Postcode :</string>
     <string name="add_title">Add an ad</string>
     <string name="add_submit_button">Add !</string>
+    <string name="currency">$</string>
 </resources>
