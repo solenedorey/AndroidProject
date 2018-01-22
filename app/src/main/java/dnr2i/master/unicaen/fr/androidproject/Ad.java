@@ -2,8 +2,11 @@ package dnr2i.master.unicaen.fr.androidproject;
 
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -34,6 +37,24 @@ public class Ad implements Parcelable {
         postcode = in.readString();
         date = in.readLong();
         this.images = new ArrayList<>();
+    }
+
+    public Ad(JSONObject json) {
+        try {
+            id = json.getString("id");
+            title = json.getString("titre");
+            description = json.getString("description");
+            price = json.getDouble("prix");
+            pseudo = json.getString("pseudo");
+            email = json.getString("emailContact");
+            phone = json.getString("telContact");
+            city = json.getString("ville");
+            postcode = json.getString("cp");
+            date = json.getLong("date");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        images = new ArrayList<>();
     }
 
     public Ad(String id, String title, String description, double price, String pseudo, String email, String phone, String city, String postcode, long date) {
@@ -134,6 +155,12 @@ public class Ad implements Parcelable {
         this.postcode = postcode;
     }
 
+    public String getFormattedDate() {
+        Date date = new Date(getDate() * 1000L);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return dateFormat.format(date);
+    }
+
     public long getDate() {
         return date;
     }
@@ -190,4 +217,3 @@ public class Ad implements Parcelable {
         parcel.writeLong(date);
     }
 }
-

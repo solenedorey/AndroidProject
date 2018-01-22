@@ -2,6 +2,7 @@ package dnr2i.master.unicaen.fr.androidproject;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -13,14 +14,11 @@ import com.android.volley.toolbox.Volley;
 import com.daimajia.slider.library.SliderLayout;
 import com.daimajia.slider.library.SliderTypes.BaseSliderView;
 import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
-import com.daimajia.slider.library.SliderTypes.TextSliderView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ViewActivity extends Activity {
     private SliderLayout sliderShow;
@@ -48,21 +46,10 @@ public class ViewActivity extends Activity {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            JSONObject adData = (JSONObject) response.get("response");
-                            Ad ad = new Ad(
-                                    adData.getString("id"),
-                                    adData.getString("titre"),
-                                    adData.getString("description"),
-                                    adData.getDouble("prix"),
-                                    adData.getString("pseudo"),
-                                    adData.getString("emailContact"),
-                                    adData.getString("telContact"),
-                                    adData.getString("ville"),
-                                    adData.getString("cp"),
-                                    adData.getLong("date")
-                            );
-                            if (adData.has("images")) {
-                                ad.setImages(adData.getJSONArray("images"));
+                            JSONObject jsonObject = (JSONObject) response.get("response");
+                            Ad ad = new Ad(jsonObject);
+                            if (jsonObject.has("images")) {
+                                ad.setImages(jsonObject.getJSONArray("images"));
                             }
                             displayAd(ad);
                         } catch (JSONException e) {
@@ -88,21 +75,32 @@ public class ViewActivity extends Activity {
         ((TextView) findViewById(R.id.viewPhone)).setText(ad.getPhone());
         ((TextView) findViewById(R.id.viewCity)).setText(ad.getCity());
         ((TextView) findViewById(R.id.viewPostcode)).setText(ad.getPostcode());
-        Date date = new Date(ad.getDate() * 1000L);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        ((TextView) findViewById(R.id.viewDate)).setText(dateFormat.format(date));
+        ((TextView) findViewById(R.id.viewDate)).setText(ad.getFormattedDate());
         makeSlider(ad.getImages());
     }
 
     private void makeSlider(ArrayList<String> images) {
-        this.sliderShow = (SliderLayout) findViewById(R.id.slider);
-        for (String imageUrl : images) {
-            DefaultSliderView defaultSliderView = new DefaultSliderView(this);
-            defaultSliderView
-                    .image(imageUrl)
-                    .setScaleType(BaseSliderView.ScaleType.Fit);
-            this.sliderShow.addSlider(defaultSliderView);
+        this.sliderShow = findViewById(R.id.slider);
+        if (images != null) {
+            for (String imageUrl : images) {
+                DefaultSliderView defaultSliderView = new DefaultSliderView(this);
+                defaultSliderView
+                        .image(imageUrl)
+                        .setScaleType(BaseSliderView.ScaleType.Fit);
+                this.sliderShow.addSlider(defaultSliderView);
+            }
+        } else {
+            this.sliderShow.setVisibility(View.GONE);
         }
+    }
+
+    private void testxml() {
+            /*    <com.daimajia.slider.library.SliderLayout
+        android:id="@+id/slider"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+                />*/
+        SliderLayout sliderLayout = new SliderLayout(this);
 
     }
 

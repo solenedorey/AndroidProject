@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class AdViewHolder extends RecyclerView.ViewHolder{
+public class AdViewHolder extends RecyclerView.ViewHolder {
 
     private Context context;
     private TextView idView;
@@ -27,12 +27,12 @@ public class AdViewHolder extends RecyclerView.ViewHolder{
         /*imageView = (ImageView) itemView.findViewById(R.id.image);*/
     }
 
-    public void bind(Ad ad){
+    public void bind(Ad ad) {
         idView.setText(ad.getId());
         titleView.setText(ad.getTitle());
         priceView.setText(ad.getPrice() + context.getString(R.string.currency));
         cityView.setText(ad.getCity() + " " + "(" + ad.getPostcode() + ")");
-        dateView.setText(String.valueOf(ad.getDate()));
+        dateView.setText(ad.getFormattedDate());
         /*Picasso.with(imageView.getContext()).load(myObject.getImageUrl()).centerCrop().fit().into(imageView);*/
     }
 }
