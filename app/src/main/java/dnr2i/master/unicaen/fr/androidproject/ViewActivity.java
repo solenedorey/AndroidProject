@@ -8,13 +8,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -25,19 +24,17 @@ public class ViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
 
-        RequestQueue queue = Volley.newRequestQueue(getApplicationContext()); // ou this
+        RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = "https://ensweb.users.info.unicaen.fr/android-api/?apikey=dnr2&method=randomAd";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
-                new Response.Listener() {
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONObject>() {
                     @Override
-                    public void onResponse(Object response) {
-                        System.out.println(response.toString());
+                    public void onResponse(JSONObject response) {
+                        System.out.println(response);
 
-                        JSONObject json = null;
                         try {
-                            json = new JSONObject(response.toString());
-                            JSONObject adData = (JSONObject) json.get("response");
+                            JSONObject adData = (JSONObject) response.get("response");
                             Ad ad = new Ad(
                                     adData.getString("id"),
                                     adData.getString("titre"),
@@ -48,7 +45,7 @@ public class ViewActivity extends Activity {
                                     adData.getString("telContact"),
                                     adData.getString("ville"),
                                     adData.getString("cp"),
-                                    adData.getInt("date")
+                                    adData.getLong("date")
                             );
                             ((TextView) findViewById(R.id.viewTitle)).setText(ad.getTitle());
                             ((TextView) findViewById(R.id.viewDescription)).setText(ad.getDescription());
@@ -68,12 +65,13 @@ public class ViewActivity extends Activity {
                             e.printStackTrace();
                         }
                     }
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
 
-        queue.add(stringRequest);
+        queue.add(jsonObjectRequest);
     }
 }

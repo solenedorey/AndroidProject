@@ -11,9 +11,9 @@ public class Ad {
     private String phone;
     private String city;
     private String postcode;
-    private int date;
+    private long date;
 
-    public Ad(String id, String title, String description, double price, String pseudo, String email, String phone, String city, String postcode, int date) {
+    public Ad(String id, String title, String description, double price, String pseudo, String email, String phone, String city, String postcode, long date) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -98,11 +98,11 @@ public class Ad {
         this.postcode = postcode;
     }
 
-    public int getDate() {
+    public long getDate() {
         return date;
     }
 
-    public void setDate(int date) {
+    public void setDate(long date) {
         this.date = date;
     }
 
