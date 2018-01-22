@@ -10,14 +10,20 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ViewActivity extends Activity {
+    private SliderLayout sliderShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +61,9 @@ public class ViewActivity extends Activity {
                                     adData.getString("cp"),
                                     adData.getLong("date")
                             );
+                            if (adData.has("images")) {
+                                ad.setImages(adData.getJSONArray("images"));
+                            }
                             displayAd(ad);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -79,10 +88,27 @@ public class ViewActivity extends Activity {
         ((TextView) findViewById(R.id.viewPhone)).setText(ad.getPhone());
         ((TextView) findViewById(R.id.viewCity)).setText(ad.getCity());
         ((TextView) findViewById(R.id.viewPostcode)).setText(ad.getPostcode());
-
         Date date = new Date(ad.getDate() * 1000L);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
         ((TextView) findViewById(R.id.viewDate)).setText(dateFormat.format(date));
+        makeSlider(ad.getImages());
+    }
+
+    private void makeSlider(ArrayList<String> images) {
+        this.sliderShow = (SliderLayout) findViewById(R.id.slider);
+        for (String imageUrl : images) {
+            DefaultSliderView defaultSliderView = new DefaultSliderView(this);
+            defaultSliderView
+                    .image(imageUrl)
+                    .setScaleType(BaseSliderView.ScaleType.Fit);
+            this.sliderShow.addSlider(defaultSliderView);
+        }
+
+    }
+
+    @Override
+    protected void onStop() {
+        this.sliderShow.stopAutoCycle();
+        super.onStop();
     }
 }

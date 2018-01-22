@@ -1,5 +1,10 @@
 package dnr2i.master.unicaen.fr.androidproject;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -15,18 +20,7 @@ public class Ad implements Parcelable {
     private String city;
     private String postcode;
     private long date;
-
-    public static final Parcelable.Creator<Ad> CREATOR = new Parcelable.Creator<Ad>() {
-        @Override
-        public Ad createFromParcel(Parcel source) {
-            return new Ad(source);
-        }
-
-        @Override
-        public Ad[] newArray(int size) {
-            return new Ad[size];
-        }
-    };
+    private ArrayList<String> images;
 
     public Ad(Parcel in) {
         id = in.readString();
@@ -39,6 +33,7 @@ public class Ad implements Parcelable {
         city = in.readString();
         postcode = in.readString();
         date = in.readLong();
+        this.images = new ArrayList<>();
     }
 
     public Ad(String id, String title, String description, double price, String pseudo, String email, String phone, String city, String postcode, long date) {
@@ -52,7 +47,20 @@ public class Ad implements Parcelable {
         this.city = city;
         this.postcode = postcode;
         this.date = date;
+        this.images = new ArrayList<>();
     }
+
+    public static final Parcelable.Creator<Ad> CREATOR = new Parcelable.Creator<Ad>() {
+        @Override
+        public Ad createFromParcel(Parcel source) {
+            return new Ad(source);
+        }
+
+        @Override
+        public Ad[] newArray(int size) {
+            return new Ad[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -150,6 +158,19 @@ public class Ad implements Parcelable {
                 '}';
     }
 
+    public ArrayList<String> getImages() {
+        return images;
+    }
+
+    public void setImages(JSONArray images) throws JSONException {
+        if (images != null) {
+            int len = images.length();
+            for (int i = 0; i < len; i++) {
+                this.images.add(images.get(i).toString());
+            }
+        }
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -169,3 +190,4 @@ public class Ad implements Parcelable {
         parcel.writeLong(date);
     }
 }
+
