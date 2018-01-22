@@ -2,6 +2,7 @@ package dnr2i.master.unicaen.fr.androidproject;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -80,13 +81,26 @@ public class ViewActivity extends Activity {
 
     private void makeSlider(ArrayList<String> images) {
         this.sliderShow = findViewById(R.id.slider);
-        for (String imageUrl : images) {
-            DefaultSliderView defaultSliderView = new DefaultSliderView(this);
-            defaultSliderView
-                    .image(imageUrl)
-                    .setScaleType(BaseSliderView.ScaleType.Fit);
-            this.sliderShow.addSlider(defaultSliderView);
+        if (images != null) {
+            for (String imageUrl : images) {
+                DefaultSliderView defaultSliderView = new DefaultSliderView(this);
+                defaultSliderView
+                        .image(imageUrl)
+                        .setScaleType(BaseSliderView.ScaleType.Fit);
+                this.sliderShow.addSlider(defaultSliderView);
+            }
+        } else {
+            this.sliderShow.setVisibility(View.GONE);
         }
+    }
+
+    private void testxml() {
+            /*    <com.daimajia.slider.library.SliderLayout
+        android:id="@+id/slider"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+                />*/
+        SliderLayout sliderLayout = new SliderLayout(this);
 
     }
 
