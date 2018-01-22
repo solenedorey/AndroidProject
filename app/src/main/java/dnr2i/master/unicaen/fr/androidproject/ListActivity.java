@@ -22,13 +22,16 @@ public class ListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
+        // get the data passed by homeActivity
+        final String searchInput = getIntent().getStringExtra("SEARCH_INPUT");
+
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = "https://ensweb.users.info.unicaen.fr/android-api/?apikey=dnr2&method=listAll";
 
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                parseResponse(response);
+                parseResponse(response, searchInput);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -42,13 +45,17 @@ public class ListActivity extends Activity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
-    protected void parseResponse(JSONObject response) {
+    protected void parseResponse(JSONObject response, String searchInput) {
         try {
             JSONArray jsonArray = response.getJSONArray("response");
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 Ad ad = new Ad(jsonObject);
-                ads.add(ad);
+                if (searchInput == null) {
+                    ads.add(ad);
+                } else if (ad.getTitle().equals(searchInput)) {
+                    ads.add(ad);
+                }
             }
             recyclerView.setAdapter(new AdAdapter(this, ads));
         } catch (JSONException e) {

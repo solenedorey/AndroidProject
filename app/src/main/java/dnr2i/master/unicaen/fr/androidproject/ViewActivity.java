@@ -94,15 +94,6 @@ public class ViewActivity extends Activity {
         }
     }
 
-    private void testxml() {
-            /*    <com.daimajia.slider.library.SliderLayout
-        android:id="@+id/slider"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-                />*/
-        SliderLayout sliderLayout = new SliderLayout(this);
-
-    }
 
     @Override
     protected void onStop() {

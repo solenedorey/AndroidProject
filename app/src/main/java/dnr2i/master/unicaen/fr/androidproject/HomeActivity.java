@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 
 public class HomeActivity extends Activity {
 
@@ -35,6 +36,13 @@ public class HomeActivity extends Activity {
 
     public void listAds(View view) {
         Intent intent = new Intent(this, ListActivity.class);
+        startActivity(intent);
+    }
+
+    public void search(View view) {
+        EditText searchInput = findViewById(R.id.searchInput);
+        Intent intent = new Intent(this, ListActivity.class);
+        intent.putExtra("SEARCH_INPUT", searchInput.getText().toString());
         startActivity(intent);
     }
 }
