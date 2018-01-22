@@ -24,6 +24,16 @@ public class ViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view);
 
+        Bundle extras = getIntent().getExtras();
+
+        if (extras != null) {
+            Ad ad = extras.getParcelable("ad");
+            if (ad != null) {
+                displayAd(ad);
+            }
+            return;
+        }
+
         RequestQueue queue = Volley.newRequestQueue(getApplicationContext());
         String url = "https://ensweb.users.info.unicaen.fr/android-api/?apikey=dnr2&method=randomAd";
 
@@ -31,8 +41,6 @@ public class ViewActivity extends Activity {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        System.out.println(response);
-
                         try {
                             JSONObject adData = (JSONObject) response.get("response");
                             Ad ad = new Ad(
@@ -47,20 +55,7 @@ public class ViewActivity extends Activity {
                                     adData.getString("cp"),
                                     adData.getLong("date")
                             );
-                            ((TextView) findViewById(R.id.viewTitle)).setText(ad.getTitle());
-                            ((TextView) findViewById(R.id.viewDescription)).setText(ad.getDescription());
-                            ((TextView) findViewById(R.id.viewPrice)).setText(String.valueOf(ad.getPrice()));
-                            ((TextView) findViewById(R.id.viewPseudo)).setText(ad.getPseudo());
-                            ((TextView) findViewById(R.id.viewEmail)).setText(ad.getEmail());
-                            ((TextView) findViewById(R.id.viewPhone)).setText(ad.getPhone());
-                            ((TextView) findViewById(R.id.viewCity)).setText(ad.getCity());
-                            ((TextView) findViewById(R.id.viewPostcode)).setText(ad.getPostcode());
-
-                            Date date = new Date(ad.getDate() * 1000L);
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-                            ((TextView) findViewById(R.id.viewDate)).setText(dateFormat.format(date));
-                            System.out.println(ad);
+                            displayAd(ad);
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -73,5 +68,21 @@ public class ViewActivity extends Activity {
                 });
 
         queue.add(jsonObjectRequest);
+    }
+
+    public void displayAd(Ad ad) {
+        ((TextView) findViewById(R.id.viewTitle)).setText(ad.getTitle());
+        ((TextView) findViewById(R.id.viewDescription)).setText(ad.getDescription());
+        ((TextView) findViewById(R.id.viewPrice)).setText(String.valueOf(ad.getPrice()));
+        ((TextView) findViewById(R.id.viewPseudo)).setText(ad.getPseudo());
+        ((TextView) findViewById(R.id.viewEmail)).setText(ad.getEmail());
+        ((TextView) findViewById(R.id.viewPhone)).setText(ad.getPhone());
+        ((TextView) findViewById(R.id.viewCity)).setText(ad.getCity());
+        ((TextView) findViewById(R.id.viewPostcode)).setText(ad.getPostcode());
+
+        Date date = new Date(ad.getDate() * 1000L);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        ((TextView) findViewById(R.id.viewDate)).setText(dateFormat.format(date));
     }
 }

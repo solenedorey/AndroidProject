@@ -1,6 +1,7 @@
 package dnr2i.master.unicaen.fr.androidproject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
@@ -11,6 +12,9 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.HashMap;
@@ -60,7 +64,27 @@ public class AddActivity extends Activity {
                 new Response.Listener() {
                     @Override
                     public void onResponse(Object response) {
-                        System.out.println(response.toString());
+                        try {
+                            JSONObject json = new JSONObject(response.toString());
+                            JSONObject data = (JSONObject) json.get("response");
+                            Ad ad = new Ad(
+                                    data.get("id").toString(),
+                                    data.get("titre").toString(),
+                                    data.get("description").toString(),
+                                    Double.parseDouble(data.get("prix").toString()),
+                                    data.get("pseudo").toString(),
+                                    data.get("emailContact").toString(),
+                                    data.get("telContact").toString(),
+                                    data.get("ville").toString(),
+                                    data.get("cp").toString(),
+                                    Long.parseLong(data.get("date").toString())
+                            );
+                            Intent intent = new Intent(AddActivity.this, ViewActivity.class);
+                            intent.putExtra("ad", ad);
+                            startActivity(intent);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
                     }
                 },
                 new Response.ErrorListener() {

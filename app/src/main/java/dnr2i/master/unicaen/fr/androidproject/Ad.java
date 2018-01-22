@@ -1,6 +1,9 @@
 package dnr2i.master.unicaen.fr.androidproject;
 
-public class Ad {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Ad implements Parcelable {
 
     private String id;
     private String title;
@@ -12,6 +15,31 @@ public class Ad {
     private String city;
     private String postcode;
     private long date;
+
+    public static final Parcelable.Creator<Ad> CREATOR = new Parcelable.Creator<Ad>() {
+        @Override
+        public Ad createFromParcel(Parcel source) {
+            return new Ad(source);
+        }
+
+        @Override
+        public Ad[] newArray(int size) {
+            return new Ad[size];
+        }
+    };
+
+    public Ad(Parcel in) {
+        id = in.readString();
+        title = in.readString();
+        description = in.readString();
+        price = in.readDouble();
+        pseudo = in.readString();
+        email = in.readString();
+        phone = in.readString();
+        city = in.readString();
+        postcode = in.readString();
+        date = in.readLong();
+    }
 
     public Ad(String id, String title, String description, double price, String pseudo, String email, String phone, String city, String postcode, long date) {
         this.id = id;
@@ -120,5 +148,24 @@ public class Ad {
                 ", postcode='" + postcode + '\'' +
                 ", date=" + date +
                 '}';
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(title);
+        parcel.writeString(description);
+        parcel.writeDouble(price);
+        parcel.writeString(pseudo);
+        parcel.writeString(email);
+        parcel.writeString(phone);
+        parcel.writeString(city);
+        parcel.writeString(postcode);
+        parcel.writeLong(date);
     }
 }
