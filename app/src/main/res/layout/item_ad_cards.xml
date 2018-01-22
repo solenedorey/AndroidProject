@@ -7,6 +7,7 @@
     android:layout_marginLeft="20dp"
     android:layout_marginRight="20dp"
     android:layout_marginTop="20dp"
+    android:onClick="displayAd"
     app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="2dp"
     app:cardElevation="2dp">
@@ -27,6 +28,14 @@
             android:layout_height="200dp"
             android:scaleType="centerCrop"
             tools:src="@drawable/parisguidetower" />-->
+
+            <TextView
+                android:id="@+id/adsListId"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:visibility="invisible" />
 
             <TextView
                 android:id="@+id/adsListTitle"

@@ -2,8 +2,11 @@ package dnr2i.master.unicaen.fr.androidproject;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.*;
+import android.view.View;
+
 import com.android.volley.*;
 import com.android.volley.toolbox.*;
 import org.json.*;
@@ -40,6 +43,17 @@ public class ListActivity extends Activity {
 
         recyclerView = (RecyclerView) findViewById(R.id.ads);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    public void displayAd(View view) {
+        Intent intent = new Intent(this, ViewActivity.class);
+        for (Ad ad : ads) {
+            if (ad.getId().equals(view.findViewById(R.id.adsListId))) {
+                intent.putExtra("ad", ad);
+                break;
+            }
+        }
+        startActivity(intent);
     }
 
     protected void parseResponse(JSONObject response) {
