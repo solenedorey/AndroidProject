@@ -10,15 +10,21 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.daimajia.slider.library.SliderLayout;
+import com.daimajia.slider.library.SliderTypes.BaseSliderView;
+import com.daimajia.slider.library.SliderTypes.DefaultSliderView;
+import com.daimajia.slider.library.SliderTypes.TextSliderView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 public class ViewActivity extends Activity {
+    private SliderLayout sliderShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +56,9 @@ public class ViewActivity extends Activity {
                                     adData.getString("cp"),
                                     adData.getInt("date")
                             );
+                            if (adData.has("images")) {
+                                ad.setImages(adData.getJSONArray("images"));
+                            }
                             ((TextView) findViewById(R.id.viewTitle)).setText(ad.getTitle());
                             ((TextView) findViewById(R.id.viewDescription)).setText(ad.getDescription());
                             ((TextView) findViewById(R.id.viewPrice)).setText(String.valueOf(ad.getPrice()));
@@ -63,6 +72,7 @@ public class ViewActivity extends Activity {
                             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
                             ((TextView) findViewById(R.id.viewDate)).setText(dateFormat.format(date));
+                            makeSlider(ad.getImages());
                             System.out.println(ad);
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -75,5 +85,23 @@ public class ViewActivity extends Activity {
         });
 
         queue.add(stringRequest);
+    }
+
+    private void makeSlider(ArrayList<String> images) {
+        this.sliderShow = (SliderLayout) findViewById(R.id.slider);
+        for (String imageUrl : images) {
+            DefaultSliderView defaultSliderView = new DefaultSliderView(this);
+            defaultSliderView
+                    .image(imageUrl)
+                    .setScaleType(BaseSliderView.ScaleType.Fit);
+            this.sliderShow.addSlider(defaultSliderView);
+        }
+
+    }
+
+    @Override
+    protected void onStop() {
+        this.sliderShow.stopAutoCycle();
+        super.onStop();
     }
 }

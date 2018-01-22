@@ -1,5 +1,10 @@
 package dnr2i.master.unicaen.fr.androidproject;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+
 public class Ad {
 
     private String id;
@@ -12,6 +17,7 @@ public class Ad {
     private String city;
     private String postcode;
     private int date;
+    private ArrayList<String> images;
 
     public Ad(String id, String title, String description, double price, String pseudo, String email, String phone, String city, String postcode, int date) {
         this.id = id;
@@ -24,6 +30,7 @@ public class Ad {
         this.city = city;
         this.postcode = postcode;
         this.date = date;
+        this.images = new ArrayList<>();
     }
 
     public String getId() {
@@ -120,5 +127,18 @@ public class Ad {
                 ", postcode='" + postcode + '\'' +
                 ", date=" + date +
                 '}';
+    }
+
+    public ArrayList<String> getImages() {
+        return images;
+    }
+
+    public void setImages(JSONArray images) throws JSONException {
+        if (images != null ){
+            int len = images.length();
+            for (int i = 0; i < len; i++) {
+                this.images.add(images.get(i).toString());
+            }
+        }
     }
 }
