@@ -61,28 +61,10 @@ public class ViewActivity extends Activity {
                                     adData.getString("cp"),
                                     adData.getLong("date")
                             );
-<<<<<<< HEAD
                             if (adData.has("images")) {
                                 ad.setImages(adData.getJSONArray("images"));
                             }
-                            ((TextView) findViewById(R.id.viewTitle)).setText(ad.getTitle());
-                            ((TextView) findViewById(R.id.viewDescription)).setText(ad.getDescription());
-                            ((TextView) findViewById(R.id.viewPrice)).setText(String.valueOf(ad.getPrice()));
-                            ((TextView) findViewById(R.id.viewPseudo)).setText(ad.getPseudo());
-                            ((TextView) findViewById(R.id.viewEmail)).setText(ad.getEmail());
-                            ((TextView) findViewById(R.id.viewPhone)).setText(ad.getPhone());
-                            ((TextView) findViewById(R.id.viewCity)).setText(ad.getCity());
-                            ((TextView) findViewById(R.id.viewPostcode)).setText(ad.getPostcode());
-
-                            Date date = new Date(ad.getDate() * 1000L);
-                            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
-                            ((TextView) findViewById(R.id.viewDate)).setText(dateFormat.format(date));
-                            makeSlider(ad.getImages());
-                            System.out.println(ad);
-=======
                             displayAd(ad);
->>>>>>> 0a28c0251764de9a971f06c1e78d4e55c48347fd
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -106,11 +88,10 @@ public class ViewActivity extends Activity {
         ((TextView) findViewById(R.id.viewPhone)).setText(ad.getPhone());
         ((TextView) findViewById(R.id.viewCity)).setText(ad.getCity());
         ((TextView) findViewById(R.id.viewPostcode)).setText(ad.getPostcode());
-
         Date date = new Date(ad.getDate() * 1000L);
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
         ((TextView) findViewById(R.id.viewDate)).setText(dateFormat.format(date));
+        makeSlider(ad.getImages());
     }
 
     private void makeSlider(ArrayList<String> images) {

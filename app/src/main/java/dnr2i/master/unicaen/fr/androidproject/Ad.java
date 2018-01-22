@@ -33,6 +33,7 @@ public class Ad implements Parcelable {
         city = in.readString();
         postcode = in.readString();
         date = in.readLong();
+        this.images = new ArrayList<>();
     }
 
     public Ad(String id, String title, String description, double price, String pseudo, String email, String phone, String city, String postcode, long date) {
