@@ -51,10 +51,11 @@ public class Ad implements Parcelable {
             city = json.getString("ville");
             postcode = json.getString("cp");
             date = json.getLong("date");
+            this.images = new ArrayList<>();
+            this.setImages(json.getJSONArray("images"));
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        images = new ArrayList<>();
     }
 
     public Ad(String id, String title, String description, double price, String pseudo, String email, String phone, String city, String postcode, long date) {
