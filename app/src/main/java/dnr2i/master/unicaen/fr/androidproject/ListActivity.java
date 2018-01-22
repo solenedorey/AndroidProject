@@ -1,17 +1,20 @@
 package dnr2i.master.unicaen.fr.androidproject;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.*;
 import com.android.volley.*;
 import com.android.volley.toolbox.*;
 import org.json.*;
 
+import java.util.ArrayList;
+
 public class ListActivity extends Activity {
 
     private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
+
+    private ArrayList<Ad> ads = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,29 +28,7 @@ public class ListActivity extends Activity {
             @Override
             public void onResponse(JSONObject response) {
                 System.out.println(response.toString());
-
-                JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(response.toString());
-                    JSONArray ads = new JSONArray(jsonObject.get("response"));
-                    for (int i = 0; i < ads.length(); i++) {
-                        JSONObject adData = (JSONObject) ads.get(i);
-                        Ad ad = new Ad(
-                                adData.getString("id"),
-                                adData.getString("titre"),
-                                adData.getString("description"),
-                                adData.getDouble("prix"),
-                                adData.getString("pseudo"),
-                                adData.getString("emailContact"),
-                                adData.getString("telContact"),
-                                adData.getString("ville"),
-                                adData.getString("cp"),
-                                adData.getInt("date")
-                        );
-                    }
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
+                parseResponse(response);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -55,5 +36,37 @@ public class ListActivity extends Activity {
             }
         });
 
+        queue.add(jsonObjectRequest);
+
+        recyclerView = (RecyclerView) findViewById(R.id.ads);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+    protected void parseResponse(JSONObject response) {
+
+        try {
+            JSONArray jsonArray = response.getJSONArray("response");
+
+
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject adData = (JSONObject) jsonArray.get(i);
+                Ad ad = new Ad(
+                        adData.getString("id"),
+                        adData.getString("titre"),
+                        adData.getString("description"),
+                        adData.getDouble("prix"),
+                        adData.getString("pseudo"),
+                        adData.getString("emailContact"),
+                        adData.getString("telContact"),
+                        adData.getString("ville"),
+                        adData.getString("cp"),
+                        adData.getInt("date")
+                );
+                ads.add(ad);
+            }
+            recyclerView.setAdapter(new AdAdapter(this, ads));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
