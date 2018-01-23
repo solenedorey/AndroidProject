@@ -80,6 +80,19 @@
             android:padding="10dp"
             android:text="@string/home_random_ad_btn" />
 
+        <Button
+            android:id="@+id/preferences"
+            style="@android:style/Widget.Holo.Button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:background="?android:attr/textColorHint"
+            android:onClick="displayFormPref"
+            android:padding="10dp"
+            android:text="@string/my_preferences"
+            />
+
+
     </LinearLayout>
 
 </RelativeLayout>
