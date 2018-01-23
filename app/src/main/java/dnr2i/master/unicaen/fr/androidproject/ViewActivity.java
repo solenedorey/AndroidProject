@@ -1,7 +1,12 @@
 package dnr2i.master.unicaen.fr.androidproject;
 
+import android.Manifest;
 import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,7 +26,9 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ViewActivity extends Activity {
+
     private SliderLayout sliderShow;
+    private Ad ad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +38,7 @@ public class ViewActivity extends Activity {
         Bundle extras = getIntent().getExtras();
 
         if (extras != null) {
-            Ad ad = extras.getParcelable("ad");
+            ad = extras.getParcelable("ad");
             if (ad != null) {
                 displayAd(ad);
             }
@@ -47,7 +54,7 @@ public class ViewActivity extends Activity {
                     public void onResponse(JSONObject response) {
                         try {
                             JSONObject jsonObject = (JSONObject) response.get("response");
-                            Ad ad = new Ad(jsonObject);
+                            ad = new Ad(jsonObject);
                             if (jsonObject.has("images")) {
                                 ad.setImages(jsonObject.getJSONArray("images"));
                             }
@@ -67,15 +74,12 @@ public class ViewActivity extends Activity {
     }
 
     public void displayAd(Ad ad) {
-        ((TextView) findViewById(R.id.viewTitle)).setText(ad.getTitle());
+        ((TextView) findViewById(R.id.viewTitle)).setText(ad.getTitle() + " - " + String.valueOf(ad.getPrice()) + this.getString(R.string.currency));
         ((TextView) findViewById(R.id.viewDescription)).setText(ad.getDescription());
-        ((TextView) findViewById(R.id.viewPrice)).setText(String.valueOf(ad.getPrice()));
-        ((TextView) findViewById(R.id.viewPseudo)).setText(ad.getPseudo());
         ((TextView) findViewById(R.id.viewEmail)).setText(ad.getEmail());
         ((TextView) findViewById(R.id.viewPhone)).setText(ad.getPhone());
-        ((TextView) findViewById(R.id.viewCity)).setText(ad.getCity());
-        ((TextView) findViewById(R.id.viewPostcode)).setText(ad.getPostcode());
-        ((TextView) findViewById(R.id.viewDate)).setText(ad.getFormattedDate());
+        ((TextView) findViewById(R.id.viewCityPostcode)).setText("City : " + ad.getCity() + " (" + ad.getPostcode() + ")");
+        ((TextView) findViewById(R.id.viewDatePseudo)).setText("Added the " + ad.getFormattedDate() + " by " + ad.getPseudo() + ".");
         makeSlider(ad.getImages());
     }
 
@@ -86,7 +90,7 @@ public class ViewActivity extends Activity {
                 DefaultSliderView defaultSliderView = new DefaultSliderView(this);
                 defaultSliderView
                         .image(imageUrl)
-                        .setScaleType(BaseSliderView.ScaleType.Fit);
+                        .setScaleType(BaseSliderView.ScaleType.CenterInside);
                 this.sliderShow.addSlider(defaultSliderView);
             }
         } else {
@@ -94,6 +98,21 @@ public class ViewActivity extends Activity {
         }
     }
 
+    public void call(View view) {
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setData(Uri.parse("tel:" + ad.getPhone()));
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        startActivity(callIntent);
+    }
 
     @Override
     protected void onStop() {

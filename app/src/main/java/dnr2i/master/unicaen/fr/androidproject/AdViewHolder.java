@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 public class AdViewHolder extends RecyclerView.ViewHolder {
 
     private Context context;
@@ -14,7 +16,7 @@ public class AdViewHolder extends RecyclerView.ViewHolder {
     private TextView cityView;
     private TextView dateView;
     private TextView priceView;
-    /*private ImageView imageView;*/
+    private ImageView imageView;
 
     public AdViewHolder(Context context, View itemView) {
         super(itemView);
@@ -24,7 +26,7 @@ public class AdViewHolder extends RecyclerView.ViewHolder {
         priceView = itemView.findViewById(R.id.adsListPrice);
         cityView = itemView.findViewById(R.id.adsListCity);
         dateView = itemView.findViewById(R.id.adsListDate);
-        /*imageView = (ImageView) itemView.findViewById(R.id.image);*/
+        imageView = itemView.findViewById(R.id.image);
     }
 
     public void bind(Ad ad) {
@@ -33,6 +35,10 @@ public class AdViewHolder extends RecyclerView.ViewHolder {
         priceView.setText(ad.getPrice() + context.getString(R.string.currency));
         cityView.setText(ad.getCity() + " " + "(" + ad.getPostcode() + ")");
         dateView.setText(ad.getFormattedDate());
-        /*Picasso.with(imageView.getContext()).load(myObject.getImageUrl()).centerCrop().fit().into(imageView);*/
+        if (ad.getImages().size() > 0) {
+            Picasso.with(imageView.getContext()).load(ad.getImages().get(0)).centerCrop().fit().into(imageView);
+        } else {
+            imageView.setVisibility(View.GONE);
+        }
     }
 }
