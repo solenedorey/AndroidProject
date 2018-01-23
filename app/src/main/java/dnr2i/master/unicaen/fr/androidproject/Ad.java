@@ -36,7 +36,7 @@ public class Ad implements Parcelable {
         city = in.readString();
         postcode = in.readString();
         date = in.readLong();
-        this.images = new ArrayList<>();
+        images = in.readArrayList(null);
     }
 
     public Ad(JSONObject json) {
@@ -183,6 +183,7 @@ public class Ad implements Parcelable {
                 ", city='" + city + '\'' +
                 ", postcode='" + postcode + '\'' +
                 ", date=" + date +
+                ", image=" + images +
                 '}';
     }
 

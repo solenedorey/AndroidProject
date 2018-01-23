@@ -65,23 +65,16 @@ public class ListActivity extends Activity {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 Ad ad = new Ad(jsonObject);
-
-                if (searchInput == null) {
-                    ads.add(ad);
-                } else if (ad.getTitle().equals(searchInput)) {
+                if (searchInput == null || ad.getTitle().equals(searchInput)) {
                     ads.add(ad);
                 }
             }
             if (ads.isEmpty()) {
                 TextView errorMessage = new TextView(this);
                 errorMessage.setText("No ads found.");
-
-
             } else {
                 recyclerView.setAdapter(new AdAdapter(this, ads));
-
             }
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
