@@ -45,4 +45,9 @@ public class HomeActivity extends Activity {
         intent.putExtra("SEARCH_INPUT", searchInput.getText().toString());
         startActivity(intent);
     }
+
+    public void displayFormPref(View view) {
+        Intent intent = new Intent(this, PreferencesActivity.class);
+        startActivity(intent);
+    }
 }

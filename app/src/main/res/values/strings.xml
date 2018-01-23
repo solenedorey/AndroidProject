@@ -15,4 +15,12 @@
     <string name="add_title">Add an ad</string>
     <string name="add_submit_button">Add</string>
     <string name="currency">$</string>
+    <string name="tel">Tel</string>
+    <string name="email">Email</string>
+    <string name="my_preferences">My Preferences</string>
+    <string name="username">Username</string>
+    <string name="add_your_preferences">Add your preferences</string>
+    <string name="preference_file_key" />
+    <string name="usernamePref" />
+    <string name="my_pref_file_key">com.dez.my_pref_file_key</string>
 </resources>
