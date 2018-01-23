@@ -216,5 +216,6 @@ public class Ad implements Parcelable {
         parcel.writeString(city);
         parcel.writeString(postcode);
         parcel.writeLong(date);
+        parcel.writeList(images);
     }
 }
