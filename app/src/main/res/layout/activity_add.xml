@@ -208,6 +208,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/holo_blue_dark"
             android:onClick="submit"
+            android:layout_margin="10dp"
             android:text="@string/add_submit_button"
             android:textColor="@android:color/background_light" />
 

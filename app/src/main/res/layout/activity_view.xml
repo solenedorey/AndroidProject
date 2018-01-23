@@ -6,91 +6,122 @@
     android:layout_height="match_parent"
     tools:context="dnr2i.master.unicaen.fr.androidproject.ViewActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
-        <TextView
-            android:id="@+id/viewTitle"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/holo_blue_dark"
-            android:padding="10dp"
-            android:text="TextView"
-            android:textAlignment="center"
-            android:textColor="@android:color/background_light"
-            android:textSize="30sp" />
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-        <com.daimajia.slider.library.SliderLayout
-            android:id="@+id/slider"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:gravity="center" >
+            <TextView
+                android:id="@+id/viewTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_blue_dark"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textAlignment="center"
+                android:textColor="@android:color/background_light"
+                android:textSize="30sp" />
 
-        </com.daimajia.slider.library.SliderLayout>
+            <com.daimajia.slider.library.SliderLayout
+                android:id="@+id/slider"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:gravity="center">
 
-        <TextView
-            android:id="@+id/viewDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="20sp"
-            android:padding="10dp" />
+            </com.daimajia.slider.library.SliderLayout>
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Contact : "
-            android:textSize="20sp"
-            android:padding="10dp"/>
+            <TextView
+                android:id="@+id/viewDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/viewEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="19sp"
-            android:paddingTop="5dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="5dp"
-            android:paddingStart="40dp"/>
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="Contact : "
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/viewPhone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="19sp"
-            android:paddingTop="5dp"
-            android:paddingEnd="10dp"
-            android:paddingBottom="5dp"
-            android:paddingStart="40dp" />
+            <TextView
+                android:id="@+id/viewEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="40dp"
+                android:paddingTop="5dp"
+                android:text="TextView"
+                android:textSize="19sp" />
 
-        <TextView
-            android:id="@+id/viewCityPostcode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="20sp"
-            android:padding="10dp" />
+            <TextView
+                android:id="@+id/viewPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="5dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="40dp"
+                android:paddingTop="5dp"
+                android:text="TextView"
+                android:textSize="19sp" />
 
-        <TextView
-            android:id="@+id/viewDatePseudo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView"
-            android:textSize="16sp"
-            android:padding="10dp" />
+            <TextView
+                android:id="@+id/viewCityPostcode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textSize="20sp" />
 
-        <Button
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="call"
-            android:text="Button" />
+            <TextView
+                android:id="@+id/viewDatePseudo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp"
+                android:text="TextView"
+                android:textSize="16sp" />
 
-    </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/viewCallButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/holo_blue_dark"
+                    android:onClick="call"
+                    android:padding="10dp"
+                    android:src="@drawable/phone_icon"
+                    android:textColor="@android:color/background_light" />
+
+                <ImageButton
+                    android:id="@+id/viewEmailButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_weight="1"
+                    android:background="@android:color/holo_blue_dark"
+                    android:onClick="email"
+                    android:padding="10dp"
+                    android:src="@drawable/email_icon"
+                    android:textColor="@android:color/background_light" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </android.support.constraint.ConstraintLayout>

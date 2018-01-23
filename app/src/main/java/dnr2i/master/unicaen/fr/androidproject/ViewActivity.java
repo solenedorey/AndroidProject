@@ -2,6 +2,7 @@ package dnr2i.master.unicaen.fr.androidproject;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -102,16 +104,24 @@ public class ViewActivity extends Activity {
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setData(Uri.parse("tel:" + ad.getPhone()));
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
+            Toast toast = Toast.makeText(getApplicationContext(), "Operation not supported.", Toast.LENGTH_SHORT);
+            toast.show();
             return;
         }
         startActivity(callIntent);
+    }
+
+    public void email(View view) {
+        Intent emailIntent = new Intent(Intent.ACTION_SEND);
+        emailIntent.setType("message/rfc822");
+        emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[] { ad.getEmail() });
+        emailIntent.putExtra(Intent.EXTRA_SUBJECT, ad.getTitle());
+        try {
+            startActivity(emailIntent);
+        } catch (ActivityNotFoundException e) {
+            Toast toast = Toast.makeText(getApplicationContext(), "Operation not supported.", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 
     @Override

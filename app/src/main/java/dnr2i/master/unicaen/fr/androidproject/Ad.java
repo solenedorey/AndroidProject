@@ -179,7 +179,7 @@ public class Ad implements Parcelable {
                 ", price=" + price +
                 ", pseudo='" + pseudo + '\'' +
                 ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
+                ", phone_icon='" + phone + '\'' +
                 ", city='" + city + '\'' +
                 ", postcode='" + postcode + '\'' +
                 ", date=" + date +

@@ -65,7 +65,7 @@ public class ListActivity extends Activity {
             for (int i = 0; i < jsonArray.length(); i++) {
                 JSONObject jsonObject = (JSONObject) jsonArray.get(i);
                 Ad ad = new Ad(jsonObject);
-                if (searchInput == null || ad.getTitle().equals(searchInput)) {
+                if (searchInput == null || ad.getTitle().toLowerCase().contains(searchInput.toLowerCase()) || ad.getDescription().toLowerCase().contains(searchInput.toLowerCase())) {
                     ads.add(ad);
                 }
             }
