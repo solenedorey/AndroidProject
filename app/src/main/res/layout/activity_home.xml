@@ -17,6 +17,17 @@
         android:orientation="vertical"
         android:padding="20dp">
 
+        <TextView
+            android:id="@+id/homeTitle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="40dp"
+            android:layout_weight="1"
+            android:text="@string/app_name"
+            android:textAlignment="center"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="30sp" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -30,7 +41,7 @@
                 android:layout_weight="1"
                 android:background="@color/cardview_light_background"
                 android:ems="10"
-                android:hint="Search..."
+                android:hint="@string/homeSearchPlaceholder"
                 android:inputType="textPersonName"
                 android:padding="10dp" />
 
@@ -89,9 +100,7 @@
             android:background="?android:attr/textColorHint"
             android:onClick="displayFormPref"
             android:padding="10dp"
-            android:text="@string/my_preferences"
-            />
-
+            android:text="@string/my_preferences" />
 
     </LinearLayout>
 

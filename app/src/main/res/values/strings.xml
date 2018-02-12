@@ -23,4 +23,7 @@
     <string name="preference_file_key" />
     <string name="usernamePref" />
     <string name="my_pref_file_key">com.dez.my_pref_file_key</string>
+    <string name="homeSearchPlaceholder">Search...</string>
+    <string name="addPrefSubmitBtn">Ok</string>
+    <string name="viewContact">Contact :</string>
 </resources>

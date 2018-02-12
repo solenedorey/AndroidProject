@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/holo_blue_dark"
                 android:onClick="submitPreferences"
-                android:text="Ok"
+                android:text="@string/addPrefSubmitBtn"
                 android:textColor="@android:color/background_light" />
 
         </LinearLayout>
